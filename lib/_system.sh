@@ -55,7 +55,8 @@ system_outros_install() {
   sleep 10
 
   sudo su - root <<EOF
-  apt install -y git
+  apt install -y git \
+                 snapd 
   sudo timedatectl set-timezone America/Sao_Paulo
   
 EOF
