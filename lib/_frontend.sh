@@ -12,7 +12,7 @@ frontend_node_dependencies() {
   printf "${WHITE} 💻 Instalando dependências do frontend...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/frontend
@@ -20,7 +20,7 @@ frontend_node_dependencies() {
   npm install react-csv
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -33,14 +33,14 @@ frontend_node_build() {
   printf "${WHITE} 💻 Compilando o código do frontend...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/frontend
   npm run build
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -53,7 +53,7 @@ frontend_update() {
   printf "${WHITE} 💻 Atualizando o frontend...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${empresa_atualizar}
@@ -68,7 +68,7 @@ frontend_update() {
   pm2 save
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 
@@ -82,7 +82,7 @@ frontend_set_env() {
   printf "${WHITE} 💻 Configurando variáveis de ambiente (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   # ensure idempotency
   backend_url=$(echo "${backend_url/http:\/\/}")
@@ -96,7 +96,7 @@ SERVER_PORT=${frontend_port}
 [-]EOF
 EOF
 
-  sleep 2
+  sleep 10
   sudo su - deploy << EOF
 cat <<[-]EOF > /home/deploy/${instancia_add}/frontend/server.js
 //simple express server to run frontend production build;
@@ -114,7 +114,7 @@ app.listen(process.env.SERVER_PORT || ${frontend_port});
 
 [-]EOF
 EOF
-  sleep 2
+  sleep 10
 
 }
 
@@ -128,7 +128,7 @@ frontend_start_pm2() {
   printf "${WHITE} 💻 Iniciando pm2 (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/frontend
@@ -136,13 +136,13 @@ frontend_start_pm2() {
   pm2 save
 EOF
 
- sleep 2
+ sleep 10
   
   sudo su - root <<EOF
   pm2 startup ubuntu -u deploy
   sudo env PATH=$PATH:/usr/bin pm2 startup ubuntu -u deploy --hp /home/deploy
 EOF
-  sleep 2
+  sleep 10
   
 }
 
@@ -156,7 +156,7 @@ frontend_nginx_setup() {
   printf "${WHITE} 💻 Configurando nginx (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   frontend_hostname=$(echo "${frontend_url/https:\/\/}")
 
@@ -183,5 +183,5 @@ END
 ln -s /etc/nginx/sites-available/${instancia_add}-frontend /etc/nginx/sites-enabled
 EOF
 
-  sleep 2
+  sleep 10
 }

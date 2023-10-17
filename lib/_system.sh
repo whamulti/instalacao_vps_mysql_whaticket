@@ -12,14 +12,14 @@ system_create_user() {
   printf "${WHITE} 💻 Agora, vamos criar o usuário para a instancia...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   useradd -m -p $(openssl passwd -crypt ${mysql_root_password}) -s /bin/bash -G sudo deploy
   usermod -aG sudo deploy
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -33,13 +33,13 @@ system_git_clone() {
   printf "\n\n"
 
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   git clone ${link_git} /home/deploy/${instancia_add}/
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -52,7 +52,7 @@ system_outros_install() {
   printf "${WHITE} 💻 Instalando outros...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   apt install -y git
@@ -60,7 +60,7 @@ system_outros_install() {
   
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -73,7 +73,7 @@ system_node_install() {
   printf "${WHITE} 💻 Instalando nodejs...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
@@ -81,7 +81,7 @@ system_node_install() {
   
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -94,13 +94,13 @@ system_mysql_install() {
   printf "${WHITE} 💻 Instalando Mysql...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   apt install -y mysql-server
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -113,7 +113,7 @@ system_update() {
   printf "${WHITE} 💻 Vamos atualizar o sistema Whaticket...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   apt -y update -y && apt upgrade -y
@@ -132,7 +132,7 @@ system_nginx_install() {
   printf "${WHITE} 💻 Instalando nginx...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   apt install -y nginx
@@ -152,7 +152,7 @@ system_nginx_conf() {
   printf "${WHITE} 💻 configurando nginx...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
 sudo su - root << EOF
 
@@ -162,7 +162,7 @@ END
 
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -175,13 +175,13 @@ system_nginx_restart() {
   printf "${WHITE} 💻 reiniciando nginx...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   service nginx restart
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -194,7 +194,7 @@ system_certbot_setup() {
   printf "${WHITE} 💻 Configurando certbot...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   backend_domain=$(echo "${backend_url/https:\/\/}")
   frontend_domain=$(echo "${frontend_url/https:\/\/}")
@@ -208,7 +208,7 @@ system_certbot_setup() {
 
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -221,7 +221,7 @@ system_certbot_install() {
   printf "${WHITE} 💻 Instalando certbot...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   snap install --classic certbot
@@ -247,7 +247,7 @@ system_puppeteer_dependencies() {
   printf "${WHITE} 💻 Instalando puppeteer dependencies...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   apt install -y libxshmfence-dev \
@@ -294,7 +294,7 @@ system_puppeteer_dependencies() {
                       xdg-utils
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -307,12 +307,12 @@ system_pm2_install() {
   printf "${WHITE} 💻 Instalando pm2...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   npm install -g pm2
 
 EOF
 
-  sleep 2
+  sleep 10
 }

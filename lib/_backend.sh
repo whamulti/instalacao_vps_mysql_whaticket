@@ -11,13 +11,13 @@ backend_mysql_create() {
   printf "${WHITE} 💻 Criando Banco Mysql...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - root <<EOF
   sudo mysql -uroot -p${mysql_root_password} -e "create database ${instancia_add} character set utf8mb4 collate utf8mb4_unicode_ci; create user '${instancia_add}'@'localhost' identified by '${mysql_root_password}';  grant all privileges on ${instancia_add}.* to '${instancia_add}'@'localhost' with grant option; flush privileges;"
 EOF
 
-sleep 2
+sleep 10
 
 }
 
@@ -31,7 +31,7 @@ backend_set_env() {
   printf "${WHITE} 💻 Configurando variáveis de ambiente (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   # ensure idempotency
   backend_url=$(echo "${backend_url/http:\/\/}")
@@ -66,7 +66,7 @@ CONNECTIONS_LIMIT=${max_whats}
 [-]EOF
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -79,14 +79,14 @@ backend_node_dependencies() {
   printf "${WHITE} 💻 Instalando dependências do backend...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/backend
   npm install
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -99,14 +99,14 @@ backend_node_build() {
   printf "${WHITE} 💻 Compilando o código do backend...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/backend
   npm run build
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -119,14 +119,14 @@ backend_db_migrate() {
   printf "${WHITE} 💻 Executando db:migrate...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/backend
   npx sequelize db:migrate
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -139,14 +139,14 @@ backend_db_seed() {
   printf "${WHITE} 💻 Executando db:seed...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/backend
   npx sequelize db:seed:all
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -160,14 +160,14 @@ backend_start_pm2() {
   printf "${WHITE} 💻 Iniciando pm2 (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   sudo su - deploy <<EOF
   cd /home/deploy/${instancia_add}/backend
   pm2 start dist/server.js --name ${instancia_add}-backend
 EOF
 
-  sleep 2
+  sleep 10
 }
 
 #######################################
@@ -180,7 +180,7 @@ backend_nginx_setup() {
   printf "${WHITE} 💻 Configurando nginx (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
-  sleep 2
+  sleep 10
 
   backend_hostname=$(echo "${backend_url/https:\/\/}")
 
@@ -204,5 +204,5 @@ END
 ln -s /etc/nginx/sites-available/${instancia_add}-backend /etc/nginx/sites-enabled
 EOF
 
-  sleep 2
+  sleep 10
 }
