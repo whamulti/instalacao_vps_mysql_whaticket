@@ -85,9 +85,9 @@ frontend_set_env() {
   sleep 10
 
   # ensure idempotency
-  backend_url=$(echo "${backend_url/http:\/\/}")
+  backend_url=$(echo "${backend_url/https:\/\/}")
   backend_url=${backend_url%%/*}
-  backend_url=http://$backend_url
+  backend_url=https://$backend_url
 
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/${instancia_add}/frontend/.env
@@ -167,7 +167,7 @@ server {
   server_name $frontend_hostname;
 
   location / {
-    proxy_pass http://127.0.0.1:${frontend_port};
+    proxy_pass https://127.0.0.1:${frontend_port};
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection 'upgrade';

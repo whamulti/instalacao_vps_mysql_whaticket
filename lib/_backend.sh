@@ -34,14 +34,14 @@ backend_set_env() {
   sleep 10
 
   # ensure idempotency
-  backend_url=$(echo "${backend_url/http:\/\/}")
+  backend_url=$(echo "${backend_url/https:\/\/}")
   backend_url=${backend_url%%/*}
-  backend_url=http://$backend_url
+  backend_url=https://$backend_url
 
   # ensure idempotency
-  frontend_url=$(echo "${frontend_url/http:\/\/}")
+  frontend_url=$(echo "${frontend_url/https:\/\/}")
   frontend_url=${frontend_url%%/*}
-  frontend_url=http://$frontend_url
+  frontend_url=https://$frontend_url
 
 sudo su - deploy << EOF
 cat <<[-]EOF > /home/deploy/${instancia_add}/backend/.env
@@ -189,7 +189,7 @@ cat > /etc/nginx/sites-available/${instancia_add}-backend << 'END'
 server {
   server_name $backend_hostname;
   location / {
-    proxy_pass http://127.0.0.1:${backend_port};
+    proxy_pass https://127.0.0.1:${backend_port};
     proxy_http_version 1.1;
     proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection 'upgrade';
