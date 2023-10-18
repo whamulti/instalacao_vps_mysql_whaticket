@@ -47,8 +47,8 @@ sudo su - deploy << EOF
 cat <<[-]EOF > /home/deploy/${instancia_add}/backend/.env
 NODE_ENV=
 BACKEND_URL=${backend_url}
-FRONTEND_URL=${frontend_url}:${frontend_port}
-PROXY_PORT=${backend_port}
+FRONTEND_URL=${frontend_url}
+PROXY_PORT=443
 PORT=${backend_port}
 
 DB_DIALECT=mysql

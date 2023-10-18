@@ -91,7 +91,7 @@ frontend_set_env() {
 
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/${instancia_add}/frontend/.env
-REACT_APP_BACKEND_URL=${backend_url}:${backend_port}
+REACT_APP_BACKEND_URL=${backend_url}
 SERVER_PORT=${frontend_port}
 [-]EOF
 EOF
